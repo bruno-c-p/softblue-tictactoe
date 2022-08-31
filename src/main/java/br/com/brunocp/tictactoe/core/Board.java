@@ -5,7 +5,7 @@ import br.com.brunocp.tictactoe.ui.UI;
 
 public class Board {
 
-    char[][] matrix;
+    private char[][] matrix;
 
     public Board() {
         matrix = new char[Constants.BOARD_SIZE][Constants.BOARD_SIZE];
@@ -66,10 +66,10 @@ public class Board {
 
     public boolean play(Player player, Move move) {
 
-        int i = move.i;
-        int j = move.j;
+        int i = move.getI();
+        int j = move.getJ();
 
-        matrix[i][j] = player.symbol;
+        matrix[i][j] = player.getSymbol();
 
         return false;
     }

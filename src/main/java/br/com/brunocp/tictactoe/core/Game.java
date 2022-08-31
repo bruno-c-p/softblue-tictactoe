@@ -7,8 +7,8 @@ import java.util.Arrays;
 
 public class Game {
 
-    Board board = new Board();
-    Player[] players = new Player[Constants.PLAYER_SYMBOLS.length];
+    private Board board = new Board();
+    private Player[] players = new Player[Constants.PLAYER_SYMBOLS.length];
 
     public void play() {
 

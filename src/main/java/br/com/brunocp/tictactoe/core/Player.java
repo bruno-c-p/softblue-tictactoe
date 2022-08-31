@@ -1,16 +1,41 @@
 package br.com.brunocp.tictactoe.core;
 
+import br.com.brunocp.tictactoe.ui.UI;
+
 public class Player {
 
-    String name;
-    Board board;
-    char symbol;
+    private String name;
+    private Board board;
+    private char symbol;
 
-    Move inputMove() {
-        return null;
+    public Player(String name, Board board, char symbol) {
+        this.name = name;
+        this.board = board;
+        this.symbol = symbol;
     }
 
-    void play() {
+    private Move inputMove() {
 
+        String playerMove = UI.readInput("Jogador '" + getName() + "' =>");
+
+        return new Move(playerMove);
+    }
+
+    public void play() {
+
+        Move move = inputMove();
+        board.play(this, move);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public char getSymbol() {
+        return symbol;
     }
 }
