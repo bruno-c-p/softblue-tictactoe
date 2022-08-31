@@ -69,8 +69,89 @@ public class Board {
         int i = move.getI();
         int j = move.getJ();
 
+
         matrix[i][j] = player.getSymbol();
 
+        return checkRows(player) || checkColumns(player) || checkDiagonal(player) || checkOtherDiagonal(player);
+    }
+
+    private boolean checkRows(Player player) {
+
+        for (int i = 0; i < Constants.BOARD_SIZE; i++) {
+
+            if (checkRow(i, player)) {
+                return true;
+            }
+        }
+
         return false;
+    }
+
+    private boolean checkRow(int i, Player player) {
+
+        char symbol = player.getSymbol();
+
+        for (int j = 0; j < Constants.BOARD_SIZE; j++) {
+
+            if (matrix[i][j] != symbol) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean checkColumns(Player player) {
+
+        for (int j = 0; j < Constants.BOARD_SIZE; j++) {
+
+            if (checkColumn(j, player)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean checkColumn(int j, Player player) {
+
+        char symbol = player.getSymbol();
+
+        for (int i = 0; i < Constants.BOARD_SIZE; i++) {
+
+            if (matrix[i][j] != symbol) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean checkDiagonal(Player player) {
+
+        char symbol = player.getSymbol();
+
+        for (int i = 0; i < Constants.BOARD_SIZE; i++) {
+
+            if (matrix[i][i] != symbol) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private boolean checkOtherDiagonal(Player player) {
+
+        char symbol = player.getSymbol();
+
+        for (int i = Constants.BOARD_SIZE - 1, j = 0; i >= 0; i--, j++) {
+
+            if (matrix[i][i] != symbol) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
