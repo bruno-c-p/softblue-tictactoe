@@ -1,6 +1,7 @@
 package br.com.brunocp.tictactoe.core;
 
 import br.com.brunocp.tictactoe.Constants;
+import br.com.brunocp.tictactoe.core.exceptions.InvalidMoveException;
 import br.com.brunocp.tictactoe.ui.UI;
 
 public class Board {
@@ -64,11 +65,20 @@ public class Board {
         return true;
     }
 
-    public boolean play(Player player, Move move) {
+    public boolean play(Player player, Move move) throws InvalidMoveException {
 
         int i = move.getI();
         int j = move.getJ();
 
+        if (i < 0 || j < 0 || i >= matrix.length || j >= matrix.length) {
+
+            throw new InvalidMoveException("O intervalo da jogada é inválido!");
+        }
+
+        if (matrix[i][j] != ' ') {
+
+            throw new InvalidMoveException("Essa jogada já foi realizada!");
+        }
 
         matrix[i][j] = player.getSymbol();
 

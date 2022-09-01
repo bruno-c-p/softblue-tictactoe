@@ -1,5 +1,6 @@
 package br.com.brunocp.tictactoe.core;
 
+import br.com.brunocp.tictactoe.core.exceptions.InvalidMoveException;
 import br.com.brunocp.tictactoe.ui.UI;
 
 public class Player {
@@ -14,14 +15,14 @@ public class Player {
         this.symbol = symbol;
     }
 
-    private Move inputMove() {
+    private Move inputMove() throws InvalidMoveException {
 
         String playerMove = UI.readInput("Jogador '" + getName() + "' =>");
 
         return new Move(playerMove);
     }
 
-    public boolean play() {
+    public boolean play() throws InvalidMoveException {
 
         Move move = inputMove();
 

@@ -1,6 +1,7 @@
 package br.com.brunocp.tictactoe.core;
 
 import br.com.brunocp.tictactoe.Constants;
+import br.com.brunocp.tictactoe.core.exceptions.InvalidMoveException;
 import br.com.brunocp.tictactoe.ui.UI;
 
 import java.util.Arrays;
@@ -29,7 +30,17 @@ public class Game {
 
             board.print();
 
-            boolean sequenceFound = currentPlayer.play();
+            boolean sequenceFound;
+
+            try {
+
+                sequenceFound = currentPlayer.play();
+
+            } catch (InvalidMoveException e) {
+
+                UI.printText("Erro: " + e.getMessage());
+                continue;
+            }
 
             if (sequenceFound) {
 

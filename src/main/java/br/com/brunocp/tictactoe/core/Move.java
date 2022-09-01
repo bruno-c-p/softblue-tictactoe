@@ -1,16 +1,25 @@
 package br.com.brunocp.tictactoe.core;
 
+import br.com.brunocp.tictactoe.core.exceptions.InvalidMoveException;
+
 public class Move {
 
     private int i;
     private int j;
 
-    public Move(String move) {
+    public Move(String move) throws InvalidMoveException {
 
-        String[] moves = move.split(",");
+        try {
 
-        this.i = Integer.parseInt(moves[0]);
-        this.j = Integer.parseInt(moves[1]);
+            String[] moves = move.split(",");
+
+            this.i = Integer.parseInt(moves[0]);
+            this.j = Integer.parseInt(moves[1]);
+
+        } catch (Exception e) {
+
+            throw new InvalidMoveException("A jogada é inválida");
+        }
     }
 
     public int getI() {
