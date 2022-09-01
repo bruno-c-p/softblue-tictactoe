@@ -2,8 +2,11 @@ package br.com.brunocp.tictactoe.core;
 
 import br.com.brunocp.tictactoe.Constants;
 import br.com.brunocp.tictactoe.core.exceptions.InvalidMoveException;
+import br.com.brunocp.tictactoe.score.FileScoreManager;
+import br.com.brunocp.tictactoe.score.ScoreManager;
 import br.com.brunocp.tictactoe.ui.UI;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Game {
@@ -11,8 +14,11 @@ public class Game {
     private Board board = new Board();
     private Player[] players = new Player[Constants.PLAYER_SYMBOLS.length];
     private int currentPlayerIndex = -1;
+    private ScoreManager scoreManager;
 
-    public void play() {
+    public void play() throws IOException {
+
+        scoreManager = createScoreManager();
 
         UI.printGameTitle();
 
@@ -63,6 +69,8 @@ public class Game {
         } else {
 
             UI.printText("o jogador '" + winner.getName() + "' venceu o jogo!");
+
+            scoreManager.saveScore(winner);
         }
 
         board.print();
@@ -75,6 +83,13 @@ public class Game {
         String name = UI.readInput("Jogador " + (index + 1) + " =>");
 
         Player player = new Player(name, board, Constants.PLAYER_SYMBOLS[index]);
+
+        Integer score = scoreManager.getScore(player);
+
+        if (score != null) {
+
+            UI.printText("O jogador " + player.getName() + " já possui " + score + " vitória(s)!" );
+        }
 
         UI.printText("O jogador '" + player.getName() + "' vai usar o símbolo '" + Constants.PLAYER_SYMBOLS[index] + "'");
 
@@ -91,5 +106,9 @@ public class Game {
         }
 
         return players[currentPlayerIndex];
+    }
+
+    private ScoreManager createScoreManager() throws IOException {
+        return new FileScoreManager();
     }
 }
